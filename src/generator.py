@@ -1,5 +1,5 @@
 """
-generator.py (primary pipeline)
+generator.py
 --------------------------------
 Takes the best re-ranked chunk(s) and asks a real local language model
 (google/flan-t5-small) to write a natural-sounding answer, using ONLY

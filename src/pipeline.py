@@ -1,5 +1,5 @@
 """
-pipeline.py (primary pipeline)
+pipeline.py
 -------------------------------
 The "conductor" - wires chunker -> retriever -> reranker -> generator ->
 logger together in the exact order described in problem statement

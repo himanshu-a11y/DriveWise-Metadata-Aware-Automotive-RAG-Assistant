@@ -1,5 +1,5 @@
 """
-retriever.py (primary pipeline)
+retriever.py
 --------------------------------
 Turns brochure chunks into real neural embeddings (using the
 sentence-transformers library) and stores them in a FAISS vector
@@ -7,8 +7,6 @@ database for fast similarity search. This matches the problem
 statement's tech stack: "Embedding model for semantic search" +
 "Vector database for brochure embeddings".
 
-Requires internet access the first time it runs, to download the
-'all-MiniLM-L6-v2' model (~90MB) from HuggingFace.
 """
 
 import numpy as np

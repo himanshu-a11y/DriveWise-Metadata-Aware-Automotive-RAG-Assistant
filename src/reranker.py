@@ -1,5 +1,5 @@
 """
-reranker.py (primary pipeline)
+reranker.py
 -------------------------------
 Uses a real Cross-Encoder model to re-score the chunks that the FAISS
 search already retrieved. A cross-encoder reads the query and a chunk
