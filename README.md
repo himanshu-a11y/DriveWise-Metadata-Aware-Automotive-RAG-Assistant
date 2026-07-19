@@ -1,95 +1,79 @@
-# DriveWise 🚗
+# DriveWise 🚗 — Metadata-Aware Automotive RAG Assistant
 
-<div align="center">
+DriveWise is a Retrieval-Augmented Generation (RAG) assistant that answers natural-language
+questions about a car using only that car's brochure content. Instead of relying on a
+model's general knowledge (which can be outdated or simply wrong), it retrieves the exact
+relevant section of the correct brochure and generates an answer grounded in that text,
+along with the source it came from.
 
-[![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)](https://python.org)
-[![HuggingFace](https://img.shields.io/badge/AI-HuggingFace-F9AB00?logo=huggingface)](https://huggingface.co/)
-[![Sentence Transformers](https://img.shields.io/badge/Embeddings-Sentence%20Transformers-orange)](#)
-[![FAISS](https://img.shields.io/badge/Vector%20DB-FAISS-red)](#)
-[![Streamlit](https://img.shields.io/badge/Dashboard-Streamlit-FF4B4B?logo=streamlit)](https://streamlit.io)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+## Features
 
-**Data Science Internship Project · Metadata-Aware Automotive RAG Assistant**  
-**Author:** Himanshu &nbsp;|&nbsp; **Domain:** Generative AI · Natural Language Processing · Retrieval-Augmented Generation
+- **Brand & model selection** — the user picks a specific car before asking anything
+- **Metadata-aware filtering** — every chunk is tagged with brand, model, section, page
+  number, and brochure version, so retrieval never mixes up two different cars
+- **Structured chunking** — brochures are split by logical section (engine, mileage,
+  safety, dimensions, interior, infotainment) instead of arbitrary character counts
+- **Semantic retrieval** — sentence-transformer embeddings (`all-MiniLM-L6-v2`) + a FAISS
+  vector index for fast similarity search
+- **Cross-encoder re-ranking** — a second, more accurate pass (`ms-marco-MiniLM-L-6-v2`)
+  re-scores retrieved chunks before generation
+- **Context window control** — only the most relevant chunk(s) reach the language model
+- **Grounded generation** — a local LLM (`flan-t5-small`) answers strictly from retrieved
+  context, with an honest "not found" response when the brochure doesn't cover a question
+- **Full source attribution** — every answer cites brand, model, section, page number,
+  file, and a unique chunk reference
+- **Query logging** — every request logs the query, retrieved chunks, response time, and
+  success/failure status
+- **Evaluation suite** — Answer Correctness, Faithfulness, and Context Relevance, measured
+  against a test set
 
-</div>
+## Architecture
 
----
-
-## 📌 Executive Summary
-Purchasing a vehicle involves analyzing massive, 50+ page official brochures to find specific specifications. **DriveWise AI** solves this by providing a highly structured **Retrieval-Augmented Generation (RAG)** assistant that answers natural-language questions using **only** a selected car's official brochure content.
-
-Instead of relying on a generalized AI model's training memory (which can hallucinate or be outdated), DriveWise retrieves the exact relevant section of the brochure and generates an answer grounded strictly in that text, complete with transparent source attribution.
-
-**Key Value Propositions:**
-- **Metadata-Aware Filtering:** Every chunk is tagged (Brand, Model, Section, Page). The RAG pipeline filters by this metadata first, ensuring answers never mix up different cars.
-- **Intelligent Chunking:** Brochures are logically split by sections (e.g., Engine, Safety) rather than random text limits, preserving full context.
-- **Advanced Retrieval Pipeline:** A fast bi-encoder (`all-MiniLM-L6-v2`) + FAISS for semantic search, followed by a powerful cross-encoder (`ms-marco-MiniLM-L-6-v2`) for precision re-ranking.
-- **Grounded Generation:** A local LLM (`flan-t5-small`) answers questions based solely on retrieved context, gracefully declining out-of-scope questions.
-- **Interactive Executive Streamlit Dashboard:** A commercial-grade web application for real-time querying and source-tracking.
-
----
-
-## 🏆 RAG Evaluation Suite
-The pipeline includes a custom evaluation module measuring standard RAG metrics against a predefined test set:
-
-| Metric | Description | Goal |
-|:---|:---|:---:|
-| 🥇 **Answer Correctness** | Does the generated answer contain the expected factual keyword? | **100%** |
-| 🥈 **Faithfulness** | Is the answer strictly grounded in the retrieved brochure text? | **High** |
-| 🥉 **Context Relevance** | Did the vector search find the correct brochure section? | **100%** |
-
----
-
-## 📁 Project Architecture & Structure
-
-```text
-DriveWise/
-│
-├── 📓 DriveWise.ipynb      # Step-by-step Jupyter Notebook walkthrough (Executes whole pipeline)
-│
-├── 🐍 src/                 # Production Modular Python Package
-│   ├── chunker.py          # Data ingestion & metadata-aware chunking
-│   ├── retriever.py        # Embeddings & FAISS vector search
-│   ├── reranker.py         # Cross-encoder relevance scoring engine
-│   ├── generator.py        # LLM answer generation with FLAN-T5
-│   ├── pipeline.py         # End-to-end RAG orchestration pipeline
-│   ├── evaluator.py        # RAG metric evaluation suite
-│   └── logger.py           # JSONL query & performance logger
-│
-├── 📂 data/
-│   └── brochures/          # Raw automotive text data (Hyundai, Tata, Maruti Suzuki)
-│
-├── 📊 app_web.py           # Commercial Streamlit Web Application
-├── 💻 app.py               # Command-Line Interface (CLI)
-├── 📦 requirements.txt     # Python dependencies
-└── 📝 README.md            # Project homepage
+```
+User selects brand/model + asks a question
+        |
+        v
+Metadata Filtering  ->  keep only chunks for the selected car
+        |
+        v
+Embedding + Vector Search (FAISS)  ->  retrieve top candidate chunks
+        |
+        v
+Cross-Encoder Re-Ranking  ->  reorder by true relevance
+        |
+        v
+Context Window Control  ->  keep only the best chunk(s)
+        |
+        v
+LLM Answer Generation (flan-t5-small)  ->  grounded, source-cited answer
+        |
+        v
+Logging & Evaluation
 ```
 
----
+## Getting Started
 
-## 🚀 Getting Started (Local Setup)
-
-### 1. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Launch the Web Dashboard
 ```bash
-streamlit run app_web.py
-```
-*(The embedding and generation models will download automatically from Hugging Face on the first run, totaling ~250MB).*
-
-### 3. Run the Command-Line Interface
-```bash
-python app.py
+python app.py              # command-line interface
+streamlit run app_web.py   # web dashboard
 ```
 
----
+Or open `DriveWise.ipynb` in Jupyter and run the cells top to bottom for a guided,
+step-by-step walkthrough of the pipeline.
 
-<div align="center">
+The embedding, re-ranking, and generation models (~250MB total) download automatically
+from Hugging Face the first time the app runs, and are cached locally after that.
 
-**Prepared by Himanshu · Data Science Internship Project**
+## Dataset
 
-</div>
+Problem statement and dataset available on Kaggle:
+[DriveWise Problem Statement](https://www.kaggle.com/datasets/salvaderron0013/drive-wise-problem-statement)
+
+## Tech Stack
+
+Python · sentence-transformers · FAISS · Hugging Face Transformers (flan-t5-small) ·
+Cross-Encoder re-ranking · Streamlit
