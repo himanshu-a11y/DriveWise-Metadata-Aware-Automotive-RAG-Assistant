@@ -65,8 +65,6 @@ streamlit run app_web.py   # web dashboard
 Or open `DriveWise.ipynb` in Jupyter and run the cells top to bottom for a guided,
 step-by-step walkthrough of the pipeline.
 
-The embedding, re-ranking, and generation models (~250MB total) download automatically
-from Hugging Face the first time the app runs, and are cached locally after that.
 
 ## Dataset
 
