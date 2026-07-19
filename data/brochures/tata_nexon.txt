@@ -1,0 +1,44 @@
+BRAND: Tata
+MODEL: Nexon
+VERSION: 2026
+
+[SECTION: engine and performance]
+[PAGE: 2]
+The Tata Nexon is available with a 1.2 litre turbo petrol engine producing around 120
+horsepower and a 1.5 litre turbo diesel engine producing around 115 horsepower. A more
+powerful petrol tune with around 125 horsepower is offered on select trims. Transmission
+options include a 5-speed manual, a 6-speed manual, a 6-speed torque converter automatic,
+and a 7-speed dual clutch automatic depending on the engine and trim chosen.
+
+[SECTION: mileage and fuel efficiency]
+[PAGE: 3]
+The petrol manual variant returns close to 17.4 kilometres per litre. The diesel manual
+variant is more fuel efficient, returning close to 24 kilometres per litre, making it one
+of the more efficient diesel options in its class. The automatic petrol variant returns
+around 17 kilometres per litre.
+
+[SECTION: safety]
+[PAGE: 4]
+The Nexon comes standard with dual front airbags, and higher trims extend this to six
+airbags. It includes electronic stability control, hill hold assist, and a tyre pressure
+monitoring system. The Nexon has consistently scored a five star rating in Global NCAP
+crash tests, and is known for its strong body structure.
+
+[SECTION: dimensions]
+[PAGE: 5]
+The Nexon has a length of 3993 mm, a width of 1811 mm, and a height of 1616 mm. Ground
+clearance is rated at around 209 mm, among the highest in its segment. Boot space is
+382 litres, expandable when the rear seats are folded.
+
+[SECTION: interior and comfort]
+[PAGE: 6]
+The interior includes a semi digital instrument cluster, an air purifier, automatic climate
+control, and a wireless phone charger on higher trims. Rear seats offer decent under thigh
+support, and the top trim includes ventilated seats.
+
+[SECTION: infotainment and connectivity]
+[PAGE: 7]
+A 12.3 inch touchscreen infotainment system is offered on top trims, along with an
+eight speaker JBL sound system. The Nexon also supports connected car features through
+Tata's app, including remote lock and unlock, vehicle location tracking, and driving
+behaviour reports.
