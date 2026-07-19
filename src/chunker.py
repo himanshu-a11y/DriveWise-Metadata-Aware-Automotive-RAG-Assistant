@@ -1,5 +1,5 @@
 """
-chunker.py (primary pipeline)
+chunker.py
 -----------------------------
 Reads brochure .txt files and splits them into structured chunks, using
 the [SECTION: ...] and [PAGE: ...] markers written into each file.
