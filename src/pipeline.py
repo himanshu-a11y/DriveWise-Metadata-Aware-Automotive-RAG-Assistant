@@ -31,7 +31,7 @@ class DriveWisePipeline:
 
     def ask(self, brand: str, model: str, query: str,
             retrieve_k: int = 5, final_k: int = 1,
-            min_rerank_score: float = 0.0) -> dict:
+            min_rerank_score: float = -10.0) -> dict:
         """
         min_rerank_score: the cross-encoder's re-rank score below which we
         treat the match as "not actually relevant" rather than force an
